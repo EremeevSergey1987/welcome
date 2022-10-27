@@ -6,37 +6,24 @@
 
 $var_1_9 = rand(1,9);
 $var_mult_rand = 10*rand(1,3);
-//var_dump($var_mult_rand, $var_1_9);
 
 $c = $var_mult_rand * $var_1_9;
 $c+=rand(0,100);
 
-if ($c >= 0 && $c < 100) {
-    $case = 1;
-}
-elseif ($c >= 100 && $c < 200) {
-    $case = 2;
-}
-elseif ($c >= 200 && $c < 300) {
-    $case = 3;
-}
-else{
-    $case = $c;
-}
-
-switch ($case) {
-    case 1:
+switch (true) {
+    case $c >= 0 && $c < 100:
         echo 'Переменная "С" больше 0 и меньше 100';
         break;
 
-    case 2:
+    case $c >= 100 && $c < 200:
         echo 'Переменная "С" больше или равна 100 и меньше 200';
         break;
 
-    case 3:
+    case $c >= 200 && $c < 300:
         echo 'Переменная "С" больше или равна 200 и меньше 300';;
         break;
 
     default:
         echo 'Переменная "С" вне диапазона от 0 до 300';
 }
+
