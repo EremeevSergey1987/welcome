@@ -1,6 +1,8 @@
 <?php
 error_reporting( 0);
 
+$super = "Master";
+
 $a;
 var_dump($a);
 
