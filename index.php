@@ -1,7 +1,7 @@
 <?php
 error_reporting( 0);
 
-$super = "Master";
+$sup = "Master";
 
 $a;
 var_dump($a);
