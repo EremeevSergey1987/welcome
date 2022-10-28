@@ -15,4 +15,3 @@ var_dump($d);
 
 $e = is_null($b);
 var_dump($e);
-echo "Привет мир!";
