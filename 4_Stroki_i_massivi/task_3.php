@@ -12,13 +12,9 @@ $arr = [
     'b' => 'var b',
     'c' => 'var c',
 ];
-$arr = array_flip($arr);
-$arr1 = implode("','", $arr);
-$arr1 .= "',";
-$arr1 = "'".$arr1;
+$array_flip = array_flip($arr);
+$new_arr = array_values($array_flip);
+print_r($new_arr);
 
-var_dump($arr1);
-$arr1 = str_replace('"','', $arr1);
-
-$arr2 = [$arr1];
-print_r($arr2);
+$string = implode(' ', $new_arr);
+echo $string;
