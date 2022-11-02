@@ -15,13 +15,13 @@ $arr = [
     'apple' => 'green',
     'k_str_5' => 'Str 5',
 ];
-$count_arr = count($arr);
-var_dump($count_arr);
 
 $array_flip = array_flip($arr);
-print_r($array_flip);
+$array_values = array_values($array_flip);
 
-$count_arr_flip = count($array_flip);
-var_dump($count_arr_flip);
+$arr_one = ['silver'];
+$array_merge = array_merge($arr, $arr_one);
 
-var_dump($count_arr != $count_arr_flip);
+print_r($array_values);
+print_r($arr_one);
+print_r($array_merge);

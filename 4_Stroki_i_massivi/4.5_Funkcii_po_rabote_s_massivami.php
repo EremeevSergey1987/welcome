@@ -21,12 +21,12 @@ $list4 = [
 ];
 
 $list5 = array_merge($list3, $list4);
-//var_dump($list5);
+//print_r($list5);
 
 $list6 = ['a', 'b', 'c'];
 $list7 = ['d', 'e', 'a'];
 $list8 = array_merge($list6, $list7);
-//var_dump($list8);
+//print_r($list8);
 
 $list9 = [
     'a' => 'word a',
