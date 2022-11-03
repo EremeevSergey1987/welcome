@@ -18,10 +18,9 @@ $arr = [
 
 $array_flip = array_flip($arr);
 $array_values = array_values($array_flip);
-
 $arr_one = ['silver'];
-$array_merge = array_merge($arr, $arr_one);
+$array_merge = array_merge($arr_one, $array_values);
+$array_merge = array_values($array_merge);
+$array_combine = array_combine($array_merge, $arr);
 
-print_r($array_values);
-print_r($arr_one);
-print_r($array_merge);
+print_r($array_combine);
