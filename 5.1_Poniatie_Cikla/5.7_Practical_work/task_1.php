@@ -9,23 +9,18 @@
 //С помощью цикла for или while расшифруйте слово.
 //Выведите результат (расшифрованное слово) на экран.
 //
-
-$text = 'x';
+$text = 'zzz';
 $step = 5;
-
-echo ord('z')+$step."\n";
-//echo ord('d')."\n";
-//echo ord('y')."\n";
-
-//x код 120, при сдвиге на 5 получаем 125, а должны 99 символ c
-
-for($i = 0; $i < strlen($text); $i++){
-    echo $text[$i]."-".ord($text[$i])."-".$i."\n";
-    if(ord($text[$i]) + $step > 120){
-        $summ = ord($text[$i]) + $step;
-        $itog = $summ - 97; //тут должна быть какая-то переменная.;
-
-        echo chr($itog);
-    }
+$coding = "";
+$decoding = "";
+$strlen = strlen($text);
+for($i = 0; $i < $strlen; $i++){
+    $coding .= (ord($text[$i]) + $step > 120) ? chr(ord($text[$i]) + $step - 26) : chr(ord($text[$i]) + $step);
 }
 
+$strlen_coding = strlen($coding);
+for($i = 0; $i < $strlen_coding; $i++){
+    $decoding .= (ord($coding[$i]) - $step < 97) ? chr(ord($coding[$i]) - $step + 26) : chr(ord($coding[$i]) - $step);
+}
+echo "Зашифрованное послание - ".$coding."\n";
+echo "Расшифровка - ".$decoding."\n";
