@@ -9,18 +9,16 @@
 //С помощью цикла for или while расшифруйте слово.
 //Выведите результат (расшифрованное слово) на экран.
 //
-$text = 'zzz';
+$text = 'abcdefghijklmnopqrstuvwxyz';
 $step = 5;
 $coding = "";
 $decoding = "";
 $strlen = strlen($text);
 for($i = 0; $i < $strlen; $i++){
-    $coding .= (ord($text[$i]) + $step > 120) ? chr(ord($text[$i]) + $step - 26) : chr(ord($text[$i]) + $step);
+    $coding .= (ord($text[$i]) + $step > 122) ? chr(ord($text[$i]) + $step - 26) : chr(ord($text[$i]) + $step);
 }
-
-$strlen_coding = strlen($coding);
-for($i = 0; $i < $strlen_coding; $i++){
+for($i = 0; $i < $strlen; $i++){
     $decoding .= (ord($coding[$i]) - $step < 97) ? chr(ord($coding[$i]) - $step + 26) : chr(ord($coding[$i]) - $step);
 }
 echo "Зашифрованное послание - ".$coding."\n";
-echo "Расшифровка - ".$decoding."\n";
+echo "Расшифровка - ".$decoding;
