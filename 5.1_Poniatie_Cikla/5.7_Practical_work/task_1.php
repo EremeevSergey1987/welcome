@@ -10,34 +10,22 @@
 //Выведите результат (расшифрованное слово) на экран.
 //
 
-$secret_word = "zzz";
-$step = 3;
+$text = 'x';
+$step = 5;
 
-$ord = ord($secret_word[1]) + $step;
-if($ord > 122){
-    echo "Ord больше 122 оно равно ".$ord."\n";
-}
-else{
-    echo "Ord меньше 122 оно равно ".$ord."\n";
-}
+echo ord('z')+$step."\n";
+//echo ord('d')."\n";
+//echo ord('y')."\n";
 
-echo ord('a');
+//x код 120, при сдвиге на 5 получаем 125, а должны 99 символ c
 
-$array = array(
-    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-    's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-);
+for($i = 0; $i < strlen($text); $i++){
+    echo $text[$i]."-".ord($text[$i])."-".$i."\n";
+    if(ord($text[$i]) + $step > 120){
+        $summ = ord($text[$i]) + $step;
+        $itog = $summ - 97; //тут должна быть какая-то переменная.;
 
-foreach ($array as $k => $v){
-    $alf[ord($v)] = $v;
-}
-print_r($alf);
-
-foreach ($alf as $k => $v){
-    if($secret_word[0] == $v){
-        $k = $k + $step;
+        echo chr($itog);
     }
 }
-echo $k;
-
 
