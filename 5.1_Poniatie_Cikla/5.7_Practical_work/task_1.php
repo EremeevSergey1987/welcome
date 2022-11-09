@@ -10,7 +10,7 @@
 //Выведите результат (расшифрованное слово) на экран.
 //
 $text = 'abcdefghijklmnopqrstuvwxyz';
-$step = 5;
+$step = 26;
 $coding = "";
 $decoding = "";
 $strlen = strlen($text);

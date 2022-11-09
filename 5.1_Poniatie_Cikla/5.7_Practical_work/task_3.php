@@ -11,26 +11,18 @@
 $summ = 100000;
 $summ_for_procent = 100000;
 $summ_itog = $summ * 2;
-$current_summ = $summ;
 $percent = 8;
-
 $year = 0;
 do{
-    if($year != 0){
-        if(($year % 3) == 0){
-            $percent += 2;
-        }
-    }
+    $percent = (($year % 3) == 0 && $year != 0) ? $percent += 2 : $percent;
     $year++;
-    $number_percent = $summ_for_procent / 100 * $percent;
-    $summ = $summ + $number_percent;
+    $summ += $summ_for_procent / 100 * $percent;
 }
 while($summ < $summ_itog);
 
-echo "Процентная ставка на завершающий {$year} год была - ".$percent." процентов\n";
+echo "Процентная ставка на завершающий {$year} год была - " . $percent . " процентов\n";
 echo "Обшая сумма накопления равна ".$summ."\n";
-echo "За завершающий год прибавилось - ".$number_percent."\n";
-echo "Прошло лет - ".$year."\n";
+echo "Прошло лет - " . $year . "\n";
 
 //8% = 8000
 //8% = 8000

@@ -14,7 +14,7 @@ foreach ($arr as $item1){
     foreach ($arr as $item2){
         foreach ($arr as $item3){
             for($i = 0; $i <= 999; $i++){
-                $arr2[] = $item1.str_pad($i, 3, '0', STR_PAD_LEFT).$item2.$item3;
+                $arr2[] = $item1 . str_pad($i, 3, '0', STR_PAD_LEFT) . $item2 . $item3;
             }
         }
     }
