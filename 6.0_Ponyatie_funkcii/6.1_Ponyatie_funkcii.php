@@ -8,4 +8,4 @@ function calculeteOperation (int $a, int $b, string $operation = "-") : int
     }
 
 }
-echo calculeteOperation(2, 5);s
+echo calculeteOperation(2, 5);
