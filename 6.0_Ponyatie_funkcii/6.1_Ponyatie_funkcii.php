@@ -1,5 +1,5 @@
 <?php
-function calculeteOperation ($a, $b, $operation = "-")
+function calculeteOperation (int $a, int $b, string $operation = "-") : int
 {
     if($operation == "+"){
         return $a + $b;
