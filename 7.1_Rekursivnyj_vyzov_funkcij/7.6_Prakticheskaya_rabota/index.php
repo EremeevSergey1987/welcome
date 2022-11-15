@@ -3,23 +3,27 @@ $searchRoot = 'first_dir';
 $searchName = 'test.txt';
 $searchResult = [];
 
-//function serchFile($searchRoot, $searchName, &$searchResult){
-//    $listElementDir = scandir('first_dir');
-//    print_r($listElementDir);
-//    var_dump(is_dir($listElementDir[0]));
-//}
+function serchFile(string $searchRoot, string $searchName, &$searchResult)
+{
 
-$listElementDir = scandir('first_dir\.');
-print_r($listElementDir);
+    $listElementsDir = scandir($searchRoot);
+    $count = count($listElementsDir);
+    for($i = 2; $i < $count; $i++){
+        $is_dir = is_dir($searchRoot . DIRECTORY_SEPARATOR . $listElementsDir[$i]);
 
+        if($is_dir){
+            serchFile($searchRoot . DIRECTORY_SEPARATOR . $listElementsDir[$i], $searchName, $searchResult);
+        }
 
-var_dump(is_dir('first_dir'. DIRECTORY_SEPARATOR . $listElementDir[6]));
-var_dump(is_dir('first_dir'. DIRECTORY_SEPARATOR . $listElementDir[7]));
-echo DIRECTORY_SEPARATOR;
-var_dump(DIRECTORY_SEPARATOR);
-//if($listElementDir[2] === $searchName){
-//    echo 'Файл найден!';
-//}
-//else{
-//    echo 'Файл не найден!';
-//}
+        if($listElementsDir[$i] == $searchName){
+            $searchResult[] = $searchRoot . DIRECTORY_SEPARATOR . $searchName;
+            return $searchResult;
+        }
+        else{
+
+        }
+
+    }
+}
+$result = serchFile($searchRoot, $searchName, $searchResult);
+print_r($result);
