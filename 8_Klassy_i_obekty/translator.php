@@ -1,6 +1,6 @@
 <?php
 class translator{
-    private $dictionary = ['en'=>[], 'de'=>[]];
+    private $dictionary = ['en'=>[], 'de'=>[],];
     private $language;
 
     public function __construct($language){
@@ -20,7 +20,7 @@ class translator{
         if(array_key_exists($translation, $this->dictionary[$this->language])){
             return;
         }
-        $this->dictionary[$translation] = $russianWord;
+        $this->dictionary[$this->language][$translation] = $russianWord;
     }
 
     public function translate($foreingWord){
