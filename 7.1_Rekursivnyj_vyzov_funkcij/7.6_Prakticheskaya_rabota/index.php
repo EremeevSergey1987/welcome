@@ -1,17 +1,17 @@
 <?php
 $searchRoot = 'first_dir';
-$searchName = 'test.txt';
+$searchName = 'test6.txt';
 $searchResult = [];
 
-function serchFile(string $searchRoot, string $searchName, &$searchResult)
+function searchFile(string $searchRoot, string $searchName, &$searchResult)
 {
     $listElementsDir = scandir($searchRoot);
         for ($i = 2; $i < count($listElementsDir); $i++) {
             $is_dir = is_dir($searchRoot . DIRECTORY_SEPARATOR . $listElementsDir[$i]);
             if ($is_dir) {
-                serchFile($searchRoot . DIRECTORY_SEPARATOR . $listElementsDir[$i], $searchName, $searchResult);
+                searchFile($searchRoot . DIRECTORY_SEPARATOR . $listElementsDir[$i], $searchName, $searchResult);
             } else {
-                if ($listElementsDir[$i] == $searchName){
+                if ($listElementsDir[$i] == $searchName) {
                     $searchResult[] = $searchRoot . DIRECTORY_SEPARATOR . $searchName;
                 } else {
                     return "Поиск не дал результатов!";
@@ -21,13 +21,17 @@ function serchFile(string $searchRoot, string $searchName, &$searchResult)
     return $searchResult;
 }
 
-$searchResult = serchFile($searchRoot, $searchName, $searchResult);
+$searchResult = searchFile($searchRoot, $searchName, $searchResult);
 
-function filterArray($var){
-    if(filesize($var)){
-        return $var;
+if (gettype($searchResult) == 'array') {
+    function filterArray($var)
+    {
+        if (filesize($var)) {
+            return $var;
+        }
     }
-}
 $searchResultFilter = array_filter($searchResult, "filterArray");
+} else {
+    $searchResultFilter = $searchResult;
+}
 print_r($searchResultFilter);
-
