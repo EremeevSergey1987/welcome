@@ -6,7 +6,7 @@ class TelegraphText
     {
         $this->author = $author;
         $this->slug = $slug;
-        $this->published = date("F j, Y, g:i a");
+        $this->published = date("h-i-s");
     }
     public function storeText() : string
     {
@@ -16,7 +16,7 @@ class TelegraphText
         $data['author'] = $this->author;
         $data['published'] = $this->published;
         // Сериализуем массив с помощью встроенной функции serialize и записываем его в файл. Имя файла хранится в поле $slug.
-        file_put_contents($this->slug, serialize($data));
+        //file_put_contents($this->slug, serialize($data));
         return serialize($data);
     }
     public function loadText() : array | string
@@ -61,19 +61,43 @@ abstract class User {
 }
 
 class FileStorage extends Storage {
+    // сохраняет сериализованный объект класса TelegraphText
     public function create ($obj){
+        $slug = 'test_text_file_' . date("Y_m_d") . '.txt';
+        $data = $obj;
+        if (file_exists($slug)){
+            $i = 1;
+            do {
+                $slug = 'test_text_file_' . date("Y_m_d") . '_' . $i++ . '.txt';
+            }
+            while (file_exists($slug));
+            file_put_contents($slug, serialize($data));
+        }
+        else{
+            file_put_contents($slug, serialize($data));
+        }
 
     }
     public function read ($id){
-
     }
     public function update ($id, $slug, $obj){
-
     }
     public function delete ($id){
-
     }
     public function list ($arrObj){
-
     }
 }
+
+
+
+
+// Создаём объект класса TelegraphText, передав необходимые для конструктора параметры
+$objTelegraphText = new TelegraphText('Sergey', 'test_text_file.txt');
+// Задаем значение свойств у экземпляра класса $objTelegraphText
+$objTelegraphText->text = "Текст";
+$objTelegraphText->title = "Заголовок";
+// Вызываем метод storeText
+//print_r($objTelegraphText->storeText());
+
+$objFileStorage = new FileStorage();
+$objFileStorage->create($objTelegraphText->storeText());
