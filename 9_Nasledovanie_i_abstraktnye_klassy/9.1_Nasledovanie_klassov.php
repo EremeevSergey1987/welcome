@@ -1,5 +1,5 @@
 <?php
-class A{
+abstract class A{
     public $message;
 }
 
