@@ -1,0 +1,1 @@
+O:13:"TelegraphText":5:{s:4:"text";s:34:"Текст, текст, текст";s:5:"title";s:21:"Заголовок465";s:6:"author";s:6:"Sergey";s:9:"published";s:8:"12-47-55";s:4:"slug";s:32:"test_text_file_2022_11_26_62.txt";}

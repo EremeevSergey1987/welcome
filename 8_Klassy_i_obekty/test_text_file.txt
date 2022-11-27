@@ -1,1 +1,1 @@
-a:4:{s:4:"text";s:8:"New text";s:5:"title";s:10:"New2 title";s:6:"author";s:6:"Sergey";s:9:"published";s:26:"November 21, 2022, 7:12 am";}
+a:4:{s:4:"text";s:8:"New text";s:5:"title";s:10:"New2 title";s:6:"author";s:6:"Sergey";s:9:"published";s:26:"November 26, 2022, 9:09 am";}
