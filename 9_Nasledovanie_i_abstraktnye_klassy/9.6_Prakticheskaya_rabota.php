@@ -1,13 +1,12 @@
 <?php
 class TelegraphText
 {
-    public $text, $title, $author, $published, $slug, $objFileStorage;
-    public function __construct(string $author, string $slug, $objFileStorage)
+    public $text, $title, $author, $published, $slug;
+    public function __construct(string $author, string $slug)
     {
         $this->author = $author;
         $this->slug = $slug;
         $this->published = date("h-i-s");
-        $this->objFileStorage = $objFileStorage;
     }
     public function storeText() : string
     {
@@ -20,9 +19,14 @@ class TelegraphText
         file_put_contents($this->slug, serialize($data));
         return serialize($data);
     }
-    public function loadText()
+    public function loadText($slug)
     {
-        $this->objFileStorage->read($this->slug);
+        if(file_get_contents($this->slug)) {
+            $arr = unserialize(file_get_contents($this->slug));
+            return $arr['text'] . PHP_EOL;
+        } else {
+            return 'Файл пуст';
+        }
     }
 
     public function editText(string $title, string $text) : array
@@ -34,7 +38,7 @@ class TelegraphText
 }
 
 abstract class Storage {
-    abstract function create ($objTelegraphText);
+    abstract function create (&$objTelegraphText);
     abstract function read ($slugSearch);
     abstract function update ($slugUpdete, $titleUpdete, $objTelegraphText);
     abstract function delete ($slugDelete);
@@ -60,8 +64,9 @@ abstract class User {
 class FileStorage extends Storage {
     // сохраняет сериализованный объект класса TelegraphText
 
-    public function create ($objTelegraphText)
+    public function create (&$objTelegraphText) : string
     {
+        print_r($objTelegraphText);
         $slug = 'test_text_file_' . date("Y_m_d") . '.txt';
         $i = 1;
         while (file_exists($slug)) {
@@ -72,7 +77,7 @@ class FileStorage extends Storage {
         return $objTelegraphText->slug;
     }
 
-    public function read ($slugSearch)
+    public function read ($slugSearch) : string
     {
         if (file_exists($slugSearch)) {
             if (file_get_contents($slugSearch)) {
@@ -85,16 +90,18 @@ class FileStorage extends Storage {
         }
     }
 
-    public function update ($slugUpdete, $titleUpdete, $objTelegraphTextUpdete) {
+    public function update ($slugUpdete, $titleUpdete, $objTelegraphTextUpdete)
+    {
         $objTelegraphTextUpdete->title = $titleUpdete;
         file_put_contents($slugUpdete, serialize($objTelegraphTextUpdete));
     }
 
-    public function delete ($slugDelete) {
+    public function delete ($slugDelete)
+    {
         unlink($slugDelete);
     }
 
-    public function list ()
+    public function list () : string
     {
         $dir = scandir(__DIR__);
         $arr_search = [];
@@ -110,25 +117,33 @@ class FileStorage extends Storage {
 }
 
 $objFileStorage = new FileStorage();
-$objTelegraphText = new TelegraphText('Sergey', 'test_text_file_2022_11_26_28.txt', $objFileStorage);
-$objTelegraphText->title = "Заголовок465";
+$objTelegraphText = new TelegraphText('Sergey', 'test_text_file_2022_11_26_28.txt');
+$objTelegraphText->title = "Заголовок";
 $objTelegraphText->text = "Текст, текст, текст";
 
-
+//--------- создание -------------
 $slugReturn = $objFileStorage->create($objTelegraphText);
+print_r($slugReturn);
+//--------- создание -------------
 
-$slugRead = 'test_text_file_2022_11_26_12.txt';
-//print_r($objFileStorage->read($slugRead));
+//--------- просмотр одного файла -------------
+//$slugRead = 'test_text_file_2022_11_28_5.txt';
+// Просмотр последнего созданного файла
+//print_r($objFileStorage->read($objTelegraphText->slug));
+//--------- просмотр одного файла -------------
 
-// Вызов метода loadText
-var_dump($objTelegraphText->loadText());
+//--------- обновление -------------
+$slugUpdete = 'test_text_file_2022_11_28_4.txt';
+$titleUpdete = 'Новый заголовок!';
+//$objTelegraphTextUpdete = unserialize(file_get_contents($slugUpdete));
+//$objFileStorage->update($slugUpdete, $titleUpdete, $objTelegraphTextUpdete);
+//--------- обновление -------------
 
-$slugUpdete = 'test_text_file_2022_11_26_1.txt';
-$titleUpdete = 'Заголовок!';
-$objTelegraphTextUpdete = unserialize(file_get_contents($slugUpdete));
-$objFileStorage->update($slugUpdete, $titleUpdete, $objTelegraphTextUpdete);
-
-$slugDelete = 'test_text_file_2022_11_26_3.txt';
+//--------- удаление -------------
+$slugDelete = 'test_text_file_2022_11_28_4.txt';
 //$objFileStorage->delete($slugDelete);
+//--------- обновление -------------
 
+//--------- просмотр текстов всех файлов -------------
 //$objFileStorage->list();
+//--------- просмотр текстов всех файлов -------------

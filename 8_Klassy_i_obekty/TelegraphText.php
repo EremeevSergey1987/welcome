@@ -38,7 +38,7 @@ class TelegraphText
 }
 
 // Создаём объект класса TelegraphText, передав необходимые для конструктора параметры
-$objTelegraphText = new TelegraphText('Sergey', 'test_text_file.txt');
+$objTelegraphText = new TelegraphText('Sergey', 'test_text_file.txt', );
 
 // Задаем значение свойств у экземпляра класса $objTelegraphText
 $objTelegraphText->text = "Текст";
