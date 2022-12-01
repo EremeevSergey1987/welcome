@@ -8,7 +8,7 @@ class TelegraphText
         $this->slug = $slug;
         $this->published = date("h-i-s");
     }
-    public function storeText() : string
+    public function storeText(): string
     {
         $data = [];
         $data['text'] = $this->text;
@@ -19,7 +19,7 @@ class TelegraphText
         file_put_contents($this->slug, serialize($data));
         return serialize($data);
     }
-    public function loadText($slug)
+    public function loadText($slug): string
     {
         if(file_get_contents($this->slug)) {
             $arr = unserialize(file_get_contents($this->slug));
@@ -64,7 +64,7 @@ abstract class User {
 class FileStorage extends Storage {
     // сохраняет сериализованный объект класса TelegraphText
 
-    public function create (&$objTelegraphText) : string
+    public function create (&$objTelegraphText): string
     {
         print_r($objTelegraphText);
         $slug = 'test_text_file_' . date("Y_m_d") . '.txt';
@@ -74,10 +74,11 @@ class FileStorage extends Storage {
         }
         $objTelegraphText->slug = $slug;
         file_put_contents($slug, serialize($objTelegraphText));
+        print_r($objTelegraphText);
         return $objTelegraphText->slug;
     }
 
-    public function read ($slugSearch) : string
+    public function read ($slugSearch): string
     {
         if (file_exists($slugSearch)) {
             if (file_get_contents($slugSearch)) {
@@ -90,18 +91,18 @@ class FileStorage extends Storage {
         }
     }
 
-    public function update ($slugUpdete, $titleUpdete, $objTelegraphTextUpdete)
+    public function update ($slugUpdete, $titleUpdete, $objTelegraphTextUpdete): void
     {
         $objTelegraphTextUpdete->title = $titleUpdete;
         file_put_contents($slugUpdete, serialize($objTelegraphTextUpdete));
     }
 
-    public function delete ($slugDelete)
+    public function delete ($slugDelete): void
     {
         unlink($slugDelete);
     }
 
-    public function list () : string
+    public function list (): string
     {
         $dir = scandir(__DIR__);
         $arr_search = [];
