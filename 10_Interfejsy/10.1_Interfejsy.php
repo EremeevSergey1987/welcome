@@ -18,13 +18,6 @@ class ScreenWriter implements StringWriter {
     }
 }
 
-class Plus implements StringWriter {
-    public function writeString($str)
-    {
-        echo 4+4;
-    }
-}
-
 class StringProcessor {
     private $writer, $str;
     public function __construct(StringWriter $writer, $str){
@@ -33,22 +26,25 @@ class StringProcessor {
     }
     public function write(){
         $this->writer->writeString($this->str);
+
     }
 }
 
-$fileWriter = new FileWriter();
 $screenWriter = new ScreenWriter();
-$objPlus = new Plus();
+$fileWriter = new FileWriter();
+
 $testString = 'Hello, World!';
 
 var_dump($fileWriter);
 var_dump($screenWriter);
-var_dump($objPlus);
+//var_dump($objPlus);
+
+
+$stringScreenProcessor = new StringProcessor($screenWriter, $testString);
+$stringScreenProcessor->write();
 
 $stringFileProcessor = new StringProcessor($fileWriter, $testString);
-$stringScreenProcessor = new StringProcessor($screenWriter, $testString);
-$plus = new StringProcessor($objPlus, $testString);
-
 $stringFileProcessor->write();
-$stringScreenProcessor->write();
-$plus->write();
+
+
+

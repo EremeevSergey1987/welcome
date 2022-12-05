@@ -50,8 +50,8 @@ $farm = new Ferm();
 
 $farm->addAnimal($cow);
 
-//$farm->addAnimal($dog);
-//$farm->addAnimal($penguin);
-//$farm->addAnimal($rooster);
+$farm->addAnimal($dog);
+$farm->addAnimal($penguin);
+$farm->addAnimal($rooster);
 
 $farm->showAnimals();

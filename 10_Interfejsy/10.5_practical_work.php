@@ -2,16 +2,16 @@
 
 interface LoggerInterface {
     // Записать сообщение в лог.
-    public function logMessage($textError);
+    public function logMessage(string $textError): void;
     // Получить список последних сообщений из лога.
-    public function lastMessages($countMessage);
+    public function lastMessages(int $countMessage): array;
 }
 
 interface EventListenerInterface {
     // присвоить событию обработчик
-    public function attachEvent(/*Принимает на вход имя метода класса, при выполнении которого он должен быть вызван, и колбек-функцию, которая вызывается при возникновении события*/);
+    public function attachEvent(string $nameMethod, callable $functionName): void;
     // убрать обработчик события.
-    public function detouchEvent (/*Принимает на вход имя метода класса, при выполнении которого вызывается обработчик события.*/);
+    public function deTouchEvent (string $nameMethod): void;
 }
 
 
@@ -53,12 +53,33 @@ class TelegraphText
     }
 }
 
-abstract class Storage {
+abstract class Storage implements LoggerInterface, EventListenerInterface{
     abstract function create (&$objTelegraphText);
     abstract function read ($slugSearch);
     abstract function update ($slugUpdete, $titleUpdete, $objTelegraphText);
     abstract function delete ($slugDelete);
     abstract function list ();
+
+    public function logMessage(string $textError) : void
+    {
+        // Добавить текст в лог
+    }
+    public function lastMessages(int $countMessage): array
+    {
+        // Вернуть количество сообщений которое указано в $countMessage
+        return [];
+
+    }
+    public function attachEvent(string $classMethodName, callable $function): void
+    {
+
+    }
+    // убрать обработчик события.
+    public function deTouchEvent (string $nameMethod): void
+    {
+
+    }
+
 }
 
 abstract class View {
@@ -70,19 +91,30 @@ abstract class View {
     abstract function displayTextByUrl($url);
 }
 
-abstract class User {
-    public $id;
-    public $name;
-    public $role;
-    abstract function getTextsToEdit();
+/**
+ * public function attachEvent - присвоить событию обработчик
+ * public function deTouchEvent - убрать обработчик события.
+ */
+abstract class User implements EventListenerInterface{
+    public int $id;
+    public string $name;
+    public string $role;
+    abstract function getTextsToEdit(): void;
+    public function attachEvent(string $nameMethod, callable $functionName): void
+    {
+
+    }
+    public function deTouchEvent (string $nameMethod): void
+    {
+
+    }
 }
 
-class FileStorage extends Storage {
+class FileStorage extends Storage{
     // сохраняет сериализованный объект класса TelegraphText
 
     public function create (&$objTelegraphText): string
     {
-        print_r($objTelegraphText);
         $slug = 'test_text_file_' . date("Y_m_d") . '.txt';
         $i = 1;
         while (file_exists($slug)) {
@@ -90,7 +122,6 @@ class FileStorage extends Storage {
         }
         $objTelegraphText->slug = $slug;
         file_put_contents($slug, serialize($objTelegraphText));
-        print_r($objTelegraphText);
         return $objTelegraphText->slug;
     }
 
