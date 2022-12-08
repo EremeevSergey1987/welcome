@@ -31,13 +31,14 @@ class TelegraphText
             }
         }
         if($name == 'slug'){
-            echo 'Тут слаг';
+            //echo $value;
         }
-        //echo $name . PHP_EOL;
     }
     public function __get($name)
     {
-        //echo $name . PHP_EOL;
+        if($name == 'slug'){
+            return $this->slug;
+        }
     }
 
 
@@ -143,9 +144,10 @@ class FileStorage extends Storage{
         while (file_exists($slug)) {
             $slug = 'test_text_file_' . date("Y_m_d") . '_' . $i++ . '.txt';
         }
-        var_dump($slug);
-        var_dump($objTelegraphText->slug);
-        var_dump($objTelegraphText->slug = $slug);
+
+
+
+        $objTelegraphText->slug = $slug;
         file_put_contents($slug, serialize($objTelegraphText));
         return $objTelegraphText->slug;
     }
