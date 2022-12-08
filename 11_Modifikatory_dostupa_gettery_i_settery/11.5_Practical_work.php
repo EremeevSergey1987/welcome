@@ -21,32 +21,29 @@ class TelegraphText
     private $title;
     private $author;
     private $published;
-    public $slug;
+    private $slug;
 
     public function __set($name, $value)
     {
-        if($name == 'title'){
-            echo $name . PHP_EOL;
+        if($name == 'author'){
+            if(strlen($value) > 120){
+                echo 'Слишком длинное имя пользователя. Длина равна ' . strlen($value);
+            }
         }
-        if($name == 'text'){
-            echo $name . PHP_EOL;
+        if($name == 'slug'){
+            echo 'Тут слаг';
         }
+        //echo $name . PHP_EOL;
     }
     public function __get($name)
     {
-        if($name == 'title'){
-            echo 1 . PHP_EOL;
-        }
-        if($name == 'text'){
-            echo 2 . PHP_EOL;
-        }
+        //echo $name . PHP_EOL;
     }
 
 
 
-    public function __construct(string $author, string $slug)
+    public function __construct(string $slug)
     {
-        $this->author = $author;
         $this->slug = $slug;
         $this->published = date("h-i-s");
     }
@@ -139,14 +136,16 @@ abstract class User implements EventListenerInterface{
 class FileStorage extends Storage{
     // сохраняет сериализованный объект класса TelegraphText
 
-    public function create (&$objTelegraphText): string
+    public function create (&$objTelegraphText)
     {
         $slug = 'test_text_file_' . date("Y_m_d") . '.txt';
         $i = 1;
         while (file_exists($slug)) {
             $slug = 'test_text_file_' . date("Y_m_d") . '_' . $i++ . '.txt';
         }
-        $objTelegraphText->slug = $slug;
+        var_dump($slug);
+        var_dump($objTelegraphText->slug);
+        var_dump($objTelegraphText->slug = $slug);
         file_put_contents($slug, serialize($objTelegraphText));
         return $objTelegraphText->slug;
     }
@@ -191,8 +190,12 @@ class FileStorage extends Storage{
 }
 
 $objFileStorage = new FileStorage();
-$objTelegraphText = new TelegraphText('Sergey', 'test_text_file_2022_11_26_28.txt');
+$objTelegraphText = new TelegraphText('test_text_file_2022_11_26_28.txt');
 $objTelegraphText->title = "Заголовок";
+$objTelegraphText->author = 'Sergey';
+
+
+
 echo $objTelegraphText->title;
 echo $objTelegraphText->text;
 $objTelegraphText->text = "Текст, текст, текст";
