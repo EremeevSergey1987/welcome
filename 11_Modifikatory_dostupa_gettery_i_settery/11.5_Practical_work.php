@@ -31,9 +31,13 @@ class TelegraphText
             }
         }
         if($name == 'slug'){
-            //echo $value;
+            if(!preg_match("/^([a-z0-9_\.]+$)/", $value)){
+                echo 'Значение поля slug является не корректным!';
+            }
         }
     }
+
+
     public function __get($name)
     {
         if($name == 'slug'){
@@ -145,8 +149,6 @@ class FileStorage extends Storage{
             $slug = 'test_text_file_' . date("Y_m_d") . '_' . $i++ . '.txt';
         }
 
-
-
         $objTelegraphText->slug = $slug;
         file_put_contents($slug, serialize($objTelegraphText));
         return $objTelegraphText->slug;
@@ -195,6 +197,7 @@ $objFileStorage = new FileStorage();
 $objTelegraphText = new TelegraphText('test_text_file_2022_11_26_28.txt');
 $objTelegraphText->title = "Заголовок";
 $objTelegraphText->author = 'Sergey';
+
 
 
 
