@@ -25,14 +25,36 @@ class TelegraphText
 
     public function __set($name, $value)
     {
+        if($name == 'title'){
+            $this->title = $value;
+        }
+
+        if($name == 'text'){
+            $this->text = $value;
+            $this->storeText();
+            $this->loadText($this->slug);
+        }
+
         if($name == 'author'){
+            $this->author = $value;
             if(strlen($value) > 120){
                 echo 'Слишком длинное имя пользователя. Длина равна ' . strlen($value);
             }
         }
         if($name == 'slug'){
+            $this->slug = $value;
             if(!preg_match("/^([a-z0-9_\.]+$)/", $value)){
                 echo 'Значение поля slug является не корректным!';
+            }
+        }
+        if($name == 'published'){
+            $this->published = $value;
+            $currentDate = date("Y-m-d");
+            if($this->published >= $currentDate){
+                echo 'Дата корректна' . PHP_EOL;
+            }
+            else{
+                echo 'Дата меньше текущей' . PHP_EOL;
             }
         }
     }
@@ -40,8 +62,17 @@ class TelegraphText
 
     public function __get($name)
     {
+        if($name == 'text'){
+            return $this->text;
+        }
+        if($name == 'author'){
+            return $this->author;
+        }
         if($name == 'slug'){
             return $this->slug;
+        }
+        if($name == 'published'){
+            return $this->published;
         }
     }
 
@@ -50,9 +81,11 @@ class TelegraphText
     public function __construct(string $slug)
     {
         $this->slug = $slug;
-        $this->published = date("h-i-s");
+        $this->published = date("Y-m-d");
+        return $this->published;
+
     }
-    public function storeText(): string
+    private function storeText(): string
     {
         $data = [];
         $data['text'] = $this->text;
@@ -60,10 +93,11 @@ class TelegraphText
         $data['author'] = $this->author;
         $data['published'] = $this->published;
         // Сериализуем массив с помощью встроенной функции serialize и записываем его в файл. Имя файла хранится в поле $slug.
+        print_r($data);
         file_put_contents($this->slug, serialize($data));
         return serialize($data);
     }
-    public function loadText($slug): string
+    private function loadText($slug): string
     {
         if(file_get_contents($this->slug)) {
             $arr = unserialize(file_get_contents($this->slug));
@@ -124,9 +158,9 @@ abstract class View {
  * public function deTouchEvent - убрать обработчик события.
  */
 abstract class User implements EventListenerInterface{
-    public int $id;
-    public string $name;
-    public string $role;
+    protected int $id;
+    protected string $name;
+    protected string $role;
     abstract function getTextsToEdit(): void;
     public function attachEvent(string $nameMethod, callable $functionName): void
     {
@@ -195,15 +229,12 @@ class FileStorage extends Storage{
 
 $objFileStorage = new FileStorage();
 $objTelegraphText = new TelegraphText('test_text_file_2022_11_26_28.txt');
+
 $objTelegraphText->title = "Заголовок";
 $objTelegraphText->author = 'Sergey';
-
-
-
-
-echo $objTelegraphText->title;
-echo $objTelegraphText->text;
+$objTelegraphText->published = date("Y-m-d");
 $objTelegraphText->text = "Текст, текст, текст";
+
 
 //--------- создание -------------
 $slugReturn = $objFileStorage->create($objTelegraphText);

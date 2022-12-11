@@ -1,1 +1,1 @@
-a:4:{s:4:"text";N;s:5:"title";N;s:6:"author";N;s:9:"published";s:8:"06-41-21";}
+a:4:{s:4:"text";s:34:"Текст, текст, текст";s:5:"title";s:18:"Заголовок";s:6:"author";s:6:"Sergey";s:9:"published";s:10:"2022-12-11";}
