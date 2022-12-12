@@ -1,0 +1,185 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+a{
+    color: #1f1f1f;
+    text-decoration: none;
+    font-size: 20px;
+}
+h1{
+    font-size: 50px;
+    color: #3a3a3a;
+}
+h2{
+    font-size: 40px;
+    color: #5d5d5d;
+}
+a:hover{
+    text-decoration: underline;
+}
+html, body{
+    margin: 0;
+    padding: 0;
+    background-color: #f6f7f9;
+}
+
+
+header{
+    height: 100px;
+    padding: 0 40px;
+}
+header > div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header div a{
+    margin-right: 30px;
+}
+
+header div a:last-child {
+    margin-right:0;
+}
+header div span{
+    margin-right: 30px;
+}
+
+
+footer{
+    padding: 40px;
+}
+.footer_wrapper{
+    display: flex;
+    justify-content: space-between;
+}
+.footer_wrapper a{
+    line-height: 30px;
+}
+.footer_menu, .footer_info, .footer_button{
+    display: flex;
+    flex-direction: column;
+}
+.footer_button_link{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    margin-top: 20px;
+}
+
+.footer_button_link img{
+    height: 15px;
+}
+
+
+
+
+
+
+.first-block > div{
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-image: url("img/man.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right center;
+}
+.first-block h2{
+    margin:-30px 0 30px;
+    font-size: 15px;
+}
+
+section{
+    padding: 40px;
+}
+.price-info .fixed-container h2, .price-info .fixed-container p{
+    width: 50%;
+}
+.services{
+    display: flex;
+    justify-content: space-between;
+}
+.services div{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}
+
+.work{
+    display: flex;
+    justify-content: space-between;
+}
+.work div{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+
+
+.fixed-container{
+    max-width: 1000px;
+    height:100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.price-info{
+    background-color: #3f2aff;
+    color: #f6f7f9;
+}
+
+.price-info h2{
+    color: #fff;
+}
+
+.light_button{
+    border: 1px solid #808080;
+    background-color: transparent;
+}
+.durk_button{
+    border: 1px solid #3f2aff;
+    background-color: #3f2aff;
+    color: white;
+}
+button{
+    border-radius: 5px;
+    padding: 10px 30px;
+    cursor: pointer;
+}
+
+.price-list{
+    border: 1px solid blueviolet;
+}
+.price-list thead{
+    background-color: #b0b0b0;
+}
+.price-list tfoot{
+    background-color: #b0b0b0;
+    font-weight: bold;
+}
+
+.popup-container{
+    background-color: rgba(2, 2, 2, 0.67);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.popup{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 300px;
+    padding: 30px 30px 10px 30px;
+    opacity: 1;
+    border-radius: 5px;
+}
+.popup input{
+    height: 30px;
+    margin-bottom: 20px;
+}
