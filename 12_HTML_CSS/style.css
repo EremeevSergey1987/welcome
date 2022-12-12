@@ -1,0 +1,15 @@
+.reg_form{
+    max-width: 800px;
+    margin: 0 auto;
+}
+/*.reg_form > div {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    margin-bottom: 30px;*/
+/*}*/
+/*.reg_form__input{*/
+/*    width: 50%;*/
+/*}*/
+/*.reg_form textarea{*/
+/*    height: 200px;*/
+/*}*/
