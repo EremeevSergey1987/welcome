@@ -1,4 +1,8 @@
 <?php
+require_once 'interfaces/LoggerInterface.php';
+require_once 'interfaces/EventListenerInterface.php';
+require_once 'entities/View.php';
+
 include_once 'autoload.php';
 
 $objFileStorage = new FileStorage();
