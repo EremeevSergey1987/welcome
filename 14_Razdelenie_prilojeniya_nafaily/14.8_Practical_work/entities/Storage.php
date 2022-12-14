@@ -1,4 +1,10 @@
 <?php
+
+require_once 'interfaces/LoggerInterface.php';
+require_once 'interfaces/EventListenerInterface.php';
+require_once 'entities/View.php';
+
+
 abstract class Storage implements LoggerInterface, EventListenerInterface{
     abstract function create (&$objTelegraphText);
     abstract function read ($slugSearch);

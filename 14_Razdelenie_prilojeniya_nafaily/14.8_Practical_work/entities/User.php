@@ -2,6 +2,7 @@
 
 require_once '../interfaces/LoggerInterface.php';
 require_once '../interfaces/EventListenerInterface.php';
+require_once '../entities/View.php';
 
 /**
  * public function attachEvent - присвоить событию обработчик
