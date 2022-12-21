@@ -23,16 +23,13 @@ use PHPMailer\PHPMailer\Exception;
                 <?php
                 if($_POST){
                     if(strlen($_POST['author']) > 0 && strlen($_POST['email']) > 0 && strlen($_POST['text']) <= 500){
-
                             $mail = new PHPMailer(true);
                             try {
                                 $objFileStorage = new FileStorage();
                                 $objTelegraphText = new TelegraphText('test_text_file.txt');
-
                                 $objTelegraphText->author = $_POST['author'];
                                 $objTelegraphText->published = date("Y-m-d");
                                 $objTelegraphText->text = $_POST['text'];
-
                                 $objFileStorage->create($objTelegraphText);
 
                                 $mail->isSMTP();                                            //Send using SMTP
@@ -43,20 +40,12 @@ use PHPMailer\PHPMailer\Exception;
                                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
                                 $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
-                                //Recipients
                                 $mail->setFrom('ya.colgon@yandex.ru', 'Mailer');
                                 $mail->addAddress($_POST['email'], $_POST['author']);     //Add a recipient
                                 $mail->addAddress('ya.colgon@yandex.ru');               //Name is optional
-
-                                //Content
                                 $mail->isHTML(true);                                  //Set email format to HTML
                                 $mail->Subject = 'Вы отправили заявку на обратный звонок!';
-                                $mail->Body    = '<html><body>
-                                    <h1>Проверка!</h1>
-                                    <p>Это тестовое письмо.</p>
-                                    </html></body>
-                                    ';
-
+                                $mail->Body    = '<html><body><h1>Проверка!</h1><p>Это тестовое письмо.</p></html></body>';
                                 $mail->send();
                                 echo '<div class="alert alert-success" role="alert">Данные успешно отправлены! E-mail успешно отправлен!</div>';
                             } catch (Exception $e) {
