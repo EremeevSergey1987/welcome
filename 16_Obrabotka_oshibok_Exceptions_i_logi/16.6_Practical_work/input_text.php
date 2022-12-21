@@ -1,22 +1,15 @@
 <?php
 require_once 'autoload.php';
-
-//Import PHPMailer classes into the global namespace
-//These must be at the top of your script, not inside a function
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
-//Load Composer's autoloader
 require 'vendor/autoload.php';
-?>
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+?>
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -30,6 +23,7 @@ require 'vendor/autoload.php';
                 <?php
                 if($_POST){
                     if(strlen($_POST['author']) > 0 && strlen($_POST['email']) > 0 && strlen($_POST['text']) <= 500){
+
                             $mail = new PHPMailer(true);
                             try {
                                 $objFileStorage = new FileStorage();
@@ -68,14 +62,12 @@ require 'vendor/autoload.php';
                             } catch (Exception $e) {
                                 echo "<div class='alert alert-danger' role='alert'>Сообщение не удалось отправить. Ошибка почтовой программы: {$mail->ErrorInfo}</div>";
                             }
-
                     }
                     else{
                         echo '<div class="alert alert-danger" role="alert">Ошибка при заполнении формы!</div>';
                     }
                 }
                 ?>
-
 
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Author</label>
@@ -95,8 +87,6 @@ require 'vendor/autoload.php';
 
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-
-
 
         </div>
     </div>
