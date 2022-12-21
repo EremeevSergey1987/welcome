@@ -1,5 +1,5 @@
 <?php
-namespace ClassTelegraphText;
+
 class TelegraphText
 {
     private $text;
