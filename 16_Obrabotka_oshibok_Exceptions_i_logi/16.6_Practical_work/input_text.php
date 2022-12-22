@@ -4,6 +4,8 @@ require 'vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -22,7 +24,7 @@ use PHPMailer\PHPMailer\Exception;
             <form method="post" action="input_text.php">
                 <?php
                 if($_POST){
-                    if(strlen($_POST['author']) > 0 && strlen($_POST['email']) > 0 && strlen($_POST['text']) <= 500){
+                    if(strlen($_POST['author']) > 0 && strlen($_POST['email']) > 0){
                             $mail = new PHPMailer(true);
                             try {
                                 $objFileStorage = new FileStorage();

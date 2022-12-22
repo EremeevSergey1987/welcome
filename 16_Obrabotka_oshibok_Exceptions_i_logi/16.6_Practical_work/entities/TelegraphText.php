@@ -1,5 +1,8 @@
 <?php
 
+class CardNumberException extends Exception {
+
+}
 class TelegraphText
 {
     private $text;
@@ -16,8 +19,21 @@ class TelegraphText
 
         if($name == 'text'){
             $this->text = $value;
-            $this->storeText();
-            $this->loadText($this->slug);
+            var_dump($this->text);
+            echo strlen($this->text);
+            if(strlen($this->text) != 0 && strlen($this->text) <= 500){
+                echo 'ok';
+                $this->storeText();
+                $this->loadText($this->slug);
+            }
+            else{
+                echo 'bed';
+                throw new CardNumberException('Ошибочка...');
+            }
+
+
+
+
         }
 
         if($name == 'author'){
