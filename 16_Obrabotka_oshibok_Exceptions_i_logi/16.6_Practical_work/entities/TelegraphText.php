@@ -1,8 +1,4 @@
 <?php
-
-class CardNumberException extends Exception {
-
-}
 class TelegraphText
 {
     private $text;
@@ -10,6 +6,13 @@ class TelegraphText
     private $author;
     private $published;
     private $slug;
+
+
+
+
+
+
+
 
     public function __set($name, $value)
     {
@@ -19,21 +22,18 @@ class TelegraphText
 
         if($name == 'text'){
             $this->text = $value;
-            var_dump($this->text);
-            echo strlen($this->text);
-            if(strlen($this->text) != 0 && strlen($this->text) <= 500){
-                echo 'ok';
+            try{
+                if(strlen($this->text) == 0 || strlen($this->text) > 500)
+                {
+                    throw new Exception('Ошибка в поле текст!');
+                }
                 $this->storeText();
                 $this->loadText($this->slug);
             }
-            else{
-                echo 'bed';
-                throw new CardNumberException('Ошибочка...');
-            }
-
-
-
-
+            catch (Exception $exception)
+                {
+                    return $exception->getMessage() . PHP_EOL;
+                }
         }
 
         if($name == 'author'){
@@ -86,17 +86,17 @@ class TelegraphText
         return $this->published;
 
     }
+
     private function storeText(): string
     {
-        $data = [];
-        $data['text'] = $this->text;
-        $data['title'] = $this->title;
-        $data['author'] = $this->author;
-        $data['published'] = $this->published;
-        // Сериализуем массив с помощью встроенной функции serialize и записываем его в файл. Имя файла хранится в поле $slug.
-
-        file_put_contents($this->slug, serialize($data));
-        return serialize($data);
+            $data = [];
+            $data['text'] = $this->text;
+            $data['title'] = $this->title;
+            $data['author'] = $this->author;
+            $data['published'] = $this->published;
+            // Сериализуем массив с помощью встроенной функции serialize и записываем его в файл. Имя файла хранится в поле $slug.
+            file_put_contents($this->slug, serialize($data));
+            return serialize($data);
     }
     private function loadText($slug): string
     {

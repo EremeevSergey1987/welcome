@@ -1,22 +1,15 @@
 <?php
 
-class CardNumberException extends Exception {
-
-}
-
-function checkNumberFormat($cartNumber)
-{
-    if(strlen($cartNumber) !== 16){
-        throw new CardNumberException('wrong format!');
-    }
-    return 'OK' . PHP_EOL;
-}
-
-function test(){
+function test($n){
     try{
-        echo  checkNumberFormat('123457891011123');
+
+        if(strlen($n) !== 16){
+            throw new Exception('wrong format!');
+        }
+        echo 'OK' . PHP_EOL;
+
     }
-    catch (CardNumberException $exception)
+    catch (Exception $exception)
     {
         echo $exception->getMessage() . PHP_EOL;
         return false;
@@ -27,5 +20,5 @@ function test(){
     }
 }
 
-test();
+test($n = 123457891011123);
 echo 'Super' . PHP_EOL;
