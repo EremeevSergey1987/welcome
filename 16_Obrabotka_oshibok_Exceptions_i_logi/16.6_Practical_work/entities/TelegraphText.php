@@ -8,12 +8,9 @@ class TelegraphText
     private $slug;
 
 
-
-
-
-
-
-
+    /**
+     * @throws Exception
+     */
     public function __set($name, $value)
     {
         if($name == 'title'){
@@ -22,19 +19,17 @@ class TelegraphText
 
         if($name == 'text'){
             $this->text = $value;
-            try{
-                if(strlen($this->text) == 0 || strlen($this->text) > 500)
+
+                if(strlen(trim($this->text)) == 0 || strlen(trim($this->text)) > 500)
                 {
                     throw new Exception('Ошибка в поле текст!');
                 }
+
                 $this->storeText();
-                $this->loadText($this->slug);
-            }
-            catch (Exception $exception)
-                {
-                    return $exception->getMessage() . PHP_EOL;
-                }
-        }
+                //$this->loadText($this->slug);
+       }
+
+
 
         if($name == 'author'){
             $this->author = $value;

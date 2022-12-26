@@ -1,46 +1,7 @@
 <?php
 require_once 'autoload.php';
 require 'vendor/autoload.php';
-
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-if($_POST){
-    if(strlen(trim($_POST['author'])) > 0 && strlen(trim($_POST['email'])) > 0){
-        $mail = new PHPMailer(true);
-        try {
-            $objTelegraphText = new TelegraphText('test_text_file.txt');
-            $objFileStorage = new FileStorage();
-
-            $objTelegraphText->author = $_POST['author'];
-            $objTelegraphText->published = date("Y-m-d");
-            $objTelegraphText->text = $_POST['text'];
-            $objFileStorage->create($objTelegraphText);
-
-            $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = 'smtp.yandex.ru';                     //Set the SMTP server to send through
-            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = 'ya.colgon@yandex.ru';                     //SMTP username
-            $mail->Password   = 'bufdamujboddkkwp';                               //SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-            $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-            $mail->setFrom('ya.colgon@yandex.ru', 'Mailer');
-            $mail->addAddress($_POST['email'], $_POST['author']);     //Add a recipient
-            $mail->addAddress('ya.colgon@yandex.ru');               //Name is optional
-            $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = 'Вы отправили заявку на обратный звонок!';
-            $mail->Body    = '<html><body><h1>Проверка!</h1><p>Это тестовое письмо.</p></html></body>';
-            $mail->send();
-            echo '<div class="alert alert-success" role="alert">Данные успешно отправлены! E-mail успешно отправлен!</div>';
-        } catch (Exception $e) {
-            echo "<div class='alert alert-danger' role='alert'>" . $e->getMessage() . "</div>";
-            echo "<div class='alert alert-danger' role='alert'>Сообщение не удалось отправить. Ошибка почтовой программы: {$mail->ErrorInfo}</div>";
-        }
-    }
-    else{
-        echo '<div class="alert alert-danger" role="alert">Ошибка при заполнении формы!</div>';
-    }
-}
 ?>
 
 <!doctype html>
@@ -58,6 +19,47 @@ if($_POST){
         <div class="row">
             <h1>Form</h1>
             <form method="post" action="input_text.php">
+
+                <?php
+                if($_POST){
+                    if(strlen(trim($_POST['author'])) > 0 && strlen(trim($_POST['email'])) > 0){
+
+                        $mail = new PHPMailer(true);
+                        $objTelegraphText = new TelegraphText('test_text_file.txt');
+                        $objFileStorage = new FileStorage();
+
+                        try {
+
+                            $objTelegraphText->author = $_POST['author'];
+                            $objTelegraphText->published = date("Y-m-d");
+                            $objTelegraphText->text = $_POST['text'];
+                            $objFileStorage->create($objTelegraphText);
+
+                            $mail->isSMTP();                                            //Send using SMTP
+                            $mail->Host       = 'smtp.yandex.ru';                     //Set the SMTP server to send through
+                            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                            $mail->Username   = 'ya.colgon@yandex.ru';                     //SMTP username
+                            $mail->Password   = 'bufdamujboddkkwp';                               //SMTP password
+                            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                            $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                            $mail->setFrom('ya.colgon@yandex.ru', 'Mailer');
+                            $mail->addAddress($_POST['email'], $_POST['author']);     //Add a recipient
+                            $mail->addAddress('ya.colgon@yandex.ru');               //Name is optional
+                            $mail->isHTML(true);                                  //Set email format to HTML
+                            $mail->Subject = 'Вы отправили заявку на обратный звонок!';
+                            $mail->Body    = '<html><body><h1>Проверка!</h1><p>Это тестовое письмо.</p></html></body>';
+                            $mail->send();
+                            echo '<div class="alert alert-success" role="alert">Данные успешно отправлены! E-mail успешно отправлен!</div>';
+                        } catch (Exception $e) {
+                            echo "<div class='alert alert-danger' role='alert'>" . $e->getMessage() . "</div>";
+                            echo "<div class='alert alert-danger' role='alert'>Сообщение не удалось отправить. Ошибка почтовой программы: {$mail->ErrorInfo}</div>";
+                        }
+                    }
+                    else{
+                        echo '<div class="alert alert-danger" role="alert">Ошибка при заполнении формы!</div>';
+                    }
+                }
+                ?>
 
 
                 <div class="mb-3">
