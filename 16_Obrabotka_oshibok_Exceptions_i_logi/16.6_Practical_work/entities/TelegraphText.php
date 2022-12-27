@@ -11,6 +11,8 @@ class TelegraphText
     /**
      * @throws Exception
      */
+
+
     public function __set($name, $value)
     {
         if($name == 'title'){
@@ -19,17 +21,11 @@ class TelegraphText
 
         if($name == 'text'){
             $this->text = $value;
-
-                if(strlen(trim($this->text)) == 0 || strlen(trim($this->text)) > 500)
-                {
-                    throw new Exception('Ошибка в поле текст!');
-                }
-
-                $this->storeText();
-                //$this->loadText($this->slug);
+            if(strlen(trim($this->text)) == 0 || strlen(trim($this->text)) > 500)
+            {
+                throw new Exception('Поле "text" должно быть заполнено и иметь длину не более 500 символов! ');
+            }
        }
-
-
 
         if($name == 'author'){
             $this->author = $value;

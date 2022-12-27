@@ -3,7 +3,6 @@ require_once 'autoload.php';
 require 'vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 ?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -19,7 +18,6 @@ use PHPMailer\PHPMailer\PHPMailer;
         <div class="row">
             <h1>Form</h1>
             <form method="post" action="input_text.php">
-
                 <?php
                 if($_POST){
                     if(strlen(trim($_POST['author'])) > 0 && strlen(trim($_POST['email'])) > 0){
@@ -29,12 +27,6 @@ use PHPMailer\PHPMailer\PHPMailer;
                         $objFileStorage = new FileStorage();
 
                         try {
-
-                            $objTelegraphText->author = $_POST['author'];
-                            $objTelegraphText->published = date("Y-m-d");
-                            $objTelegraphText->text = $_POST['text'];
-                            $objFileStorage->create($objTelegraphText);
-
                             $mail->isSMTP();                                            //Send using SMTP
                             $mail->Host       = 'smtp.yandex.ru';                     //Set the SMTP server to send through
                             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
@@ -49,10 +41,16 @@ use PHPMailer\PHPMailer\PHPMailer;
                             $mail->Subject = 'Вы отправили заявку на обратный звонок!';
                             $mail->Body    = '<html><body><h1>Проверка!</h1><p>Это тестовое письмо.</p></html></body>';
                             $mail->send();
+
+                            $objTelegraphText->author = $_POST['author'];
+                            $objTelegraphText->published = date("Y-m-d");
+                            $objTelegraphText->text = $_POST['text'];
+                            $objFileStorage->create($objTelegraphText);
+
                             echo '<div class="alert alert-success" role="alert">Данные успешно отправлены! E-mail успешно отправлен!</div>';
+                            $_POST = array();
                         } catch (Exception $e) {
-                            echo "<div class='alert alert-danger' role='alert'>" . $e->getMessage() . "</div>";
-                            echo "<div class='alert alert-danger' role='alert'>Сообщение не удалось отправить. Ошибка почтовой программы: {$mail->ErrorInfo}</div>";
+                            echo "<div class='alert alert-danger' role='alert'>" . $e->getMessage() . $mail->ErrorInfo . "</div>";
                         }
                     }
                     else{
@@ -60,7 +58,6 @@ use PHPMailer\PHPMailer\PHPMailer;
                     }
                 }
                 ?>
-
 
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Author</label>
