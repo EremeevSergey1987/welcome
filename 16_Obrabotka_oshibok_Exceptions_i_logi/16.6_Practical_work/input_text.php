@@ -50,13 +50,20 @@ use PHPMailer\PHPMailer\PHPMailer;
                             echo '<div class="alert alert-success" role="alert">Данные успешно отправлены! E-mail успешно отправлен!</div>';
                             $_POST = array();
                         } catch (Exception $e) {
+
                             echo "<div class='alert alert-danger' role='alert'>" . $e->getMessage() . $mail->ErrorInfo . "</div>";
                         }
+                        set_exception_handler($objTelegraphText->exception_handler($e));
                     }
                     else{
                         echo '<div class="alert alert-danger" role="alert">Ошибка при заполнении формы!</div>';
                     }
+
                 }
+
+
+
+
                 ?>
 
                 <div class="mb-3">

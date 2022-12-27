@@ -13,6 +13,15 @@ class TelegraphText
      */
 
 
+    public function exception_handler(Throwable $exception): string
+    {
+        return "<div class='alert alert-danger' role='alert'>Неперехваченное исключение: " . $exception->getMessage() . "</div>";
+    }
+
+
+    /**
+     * @throws Exception
+     */
     public function __set($name, $value)
     {
         if($name == 'title'){
@@ -20,11 +29,16 @@ class TelegraphText
         }
 
         if($name == 'text'){
+
             $this->text = $value;
             if(strlen(trim($this->text)) == 0 || strlen(trim($this->text)) > 500)
             {
-                throw new Exception('Поле "text" должно быть заполнено и иметь длину не более 500 символов! ');
+                throw new Exception('Поле "text" должно быть заполнено и иметь длину не более 500 символов!');
             }
+
+
+
+
        }
 
         if($name == 'author'){
