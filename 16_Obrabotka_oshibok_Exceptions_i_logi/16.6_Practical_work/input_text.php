@@ -27,7 +27,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 <body>
     <div class="container">
         <div class="row">
-            <h1>Form!!!</h1>
+            <h1>Form</h1>
             <form method="post" action="input_text.php">
                 <?php
                 if($_POST){
