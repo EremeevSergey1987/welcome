@@ -7,18 +7,6 @@ class TelegraphText
     private $published;
     private $slug;
 
-
-    /**
-     * @throws Exception
-     */
-
-
-    public function exception_handler(Throwable $exception)
-    {
-        echo "<div class='alert alert-danger' role='alert'>Неперехваченное исключение: " . $exception->getMessage() . "</div>";
-    }
-
-
     /**
      * @throws Exception
      */

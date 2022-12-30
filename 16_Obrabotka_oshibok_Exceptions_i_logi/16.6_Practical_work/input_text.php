@@ -6,6 +6,13 @@ ini_set('display_startup_errors', 1);
 require_once 'autoload.php';
 require 'vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
+
+    function exception_handler(Throwable $exception)
+    {
+        echo "Неперехваченное исключение: " . $exception->getMessage();
+    }
+    set_exception_handler('exception_handler');
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -55,9 +62,12 @@ use PHPMailer\PHPMailer\PHPMailer;
                             $_POST = array();
                         } catch (Exception $e) {
 
-                            echo "<div class='alert alert-danger' role='alert'>" . $e->getMessage() . $mail->ErrorInfo . "</div>";
+                                throw new Exception('Поле "text" должно быть заполнено и иметь длину не более 500 символов!');
+
+
+                            //echo "<div class='alert alert-danger' role='alert'>" . $mail->ErrorInfo . "</div>";
                         }
-                        set_exception_handler($objTelegraphText->exception_handler($e));
+
 
                     }
                     else{
