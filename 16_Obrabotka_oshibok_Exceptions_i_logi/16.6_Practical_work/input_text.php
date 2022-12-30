@@ -1,4 +1,8 @@
 <?php
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
 require_once 'autoload.php';
 require 'vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
@@ -16,7 +20,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 <body>
     <div class="container">
         <div class="row">
-            <h1>Form</h1>
+            <h1>Form!!!!</h1>
             <form method="post" action="input_text.php">
                 <?php
                 if($_POST){
@@ -54,6 +58,7 @@ use PHPMailer\PHPMailer\PHPMailer;
                             echo "<div class='alert alert-danger' role='alert'>" . $e->getMessage() . $mail->ErrorInfo . "</div>";
                         }
                         set_exception_handler($objTelegraphText->exception_handler($e));
+
                     }
                     else{
                         echo '<div class="alert alert-danger" role="alert">Ошибка при заполнении формы!</div>';
