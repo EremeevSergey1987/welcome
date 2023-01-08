@@ -1,5 +1,6 @@
 {
     "require": {
-        "markbaker/matrix": "^3.0"
+        "markbaker/matrix": "^3.0",
+      "ext-curl": "*"
     }
 }

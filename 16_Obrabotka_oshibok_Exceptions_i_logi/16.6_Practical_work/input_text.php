@@ -30,6 +30,7 @@ use PHPMailer\PHPMailer\PHPMailer;
             <h1>Form</h1>
             <form method="post" action="input_text.php">
                 <?php
+
                 if($_POST){
                     if(strlen(trim($_POST['author'])) > 0 && strlen(trim($_POST['email'])) > 0){
 
