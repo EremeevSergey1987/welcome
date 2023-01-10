@@ -27,13 +27,15 @@ ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
-if($_POST){
+$url = 'https://profi.ru/media/kak-sozdat-sajt-s-nulja-podrobnaja-instrukcija';
+
     $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $_POST['siteUrl']);
+    curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_HTTPGET, 1);
     curl_setopt($curl, CURLOPT_PORT, 443);
     echo curl_exec($curl);
-}
+
+
 ?>
 
 </body>

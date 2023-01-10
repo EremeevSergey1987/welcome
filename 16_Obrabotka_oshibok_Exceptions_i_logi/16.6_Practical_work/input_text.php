@@ -1,18 +1,7 @@
 <?php
-ini_set('error_reporting', E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-
 require_once 'autoload.php';
 require 'vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
-
-    function exception_handler(Throwable $exception)
-    {
-        echo "Неперехваченное исключение: " . $exception->getMessage();
-    }
-    set_exception_handler('exception_handler');
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -30,7 +19,6 @@ use PHPMailer\PHPMailer\PHPMailer;
             <h1>Form</h1>
             <form method="post" action="input_text.php">
                 <?php
-
                 if($_POST){
                     if(strlen(trim($_POST['author'])) > 0 && strlen(trim($_POST['email'])) > 0){
 
@@ -63,13 +51,9 @@ use PHPMailer\PHPMailer\PHPMailer;
                             $_POST = array();
                         } catch (Exception $e) {
 
-                                throw new Exception('Поле "text" должно быть заполнено и иметь длину не более 500 символов!');
-
-
-                            //echo "<div class='alert alert-danger' role='alert'>" . $mail->ErrorInfo . "</div>";
+                            echo "<div class='alert alert-danger' role='alert'>" . $e->getMessage() . $mail->ErrorInfo . "</div>";
                         }
-
-
+                        set_exception_handler($objTelegraphText->exception_handler($e));
                     }
                     else{
                         echo '<div class="alert alert-danger" role="alert">Ошибка при заполнении формы!</div>';

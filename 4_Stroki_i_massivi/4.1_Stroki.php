@@ -45,7 +45,7 @@ $length = strlen($str10);
 //var_dump($length);
 
 
-$length_mb = mb_strlen($str10);
+//$length_mb = mb_strlen($str10);
 //var_dump($length_mb);
 
 $str11 = 'hello';
