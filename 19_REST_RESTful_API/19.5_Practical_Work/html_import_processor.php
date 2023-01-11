@@ -27,14 +27,27 @@ ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
-$url = 'https://profi.ru/media/kak-sozdat-sajt-s-nulja-podrobnaja-instrukcija';
-
+    $url = 'https://mastersuper.ru/';
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_HTTPGET, 1);
     curl_setopt($curl, CURLOPT_PORT, 443);
-    echo curl_exec($curl);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
+    $array_to_json = array('raw_text' => curl_exec($curl));
+    $json = json_encode($array_to_json);
+
+    // Create a CURLStringFile object
+    $cstringfile = new CURLStringFile('test upload contents','test.txt','text/plain');
+
+    // Assign POST data
+    $data = array('test_string' => $cstringfile);
+    curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+    
+    var_dump($cstringfile);
+    var_dump($_POST);
 
 ?>
 
