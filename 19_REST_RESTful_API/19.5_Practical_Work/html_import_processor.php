@@ -23,31 +23,52 @@
 </div>
 
 <?php
-ini_set('error_reporting', E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
 
-    $url = 'https://mastersuper.ru/';
+if($_POST){
     $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_URL, $_POST['siteUrl']);
     curl_setopt($curl, CURLOPT_HTTPGET, 1);
     curl_setopt($curl, CURLOPT_PORT, 443);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-
     $array_to_json = array('raw_text' => curl_exec($curl));
+    var_dump($array_to_json);
     $json = json_encode($array_to_json);
+    //curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
+    curl_close($curl);
 
-    // Create a CURLStringFile object
-    $cstringfile = new CURLStringFile('test upload contents','test.txt','text/plain');
+    $curl2 = curl_init();
+}
 
-    // Assign POST data
-    $data = array('test_string' => $cstringfile);
-    curl_setopt($curl, CURLOPT_POST, 1);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+?>
 
-    
-    var_dump($cstringfile);
-    var_dump($_POST);
+
+
+<?php
+
+//$url = 'http://www.example.com/';
+//
+//$headers = ['Content-Type: application/json']; // заголовки нашего запроса
+//
+//$post_data = [ // поля нашего запроса
+//    'raw_text' => 'val_1',
+//];
+//
+//$data_json = json_encode($post_data); // переводим поля в формат JSON
+//
+//$curl = curl_init();
+//curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+//curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+//curl_setopt($curl, CURLOPT_VERBOSE, 1);
+//curl_setopt($curl, CURLOPT_POSTFIELDS, $data_json);
+//curl_setopt($curl, CURLOPT_URL, $url);
+//curl_setopt($curl, CURLOPT_POST, true);
+//curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
+//
+//$result = curl_exec($curl); // результат POST запроса
+//
+//var_dump($data_json);
+//var_dump($_POST);
+//var_dump($_GET);
 
 ?>
 
