@@ -19,58 +19,26 @@
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+        <?php
+        if($_POST){
+            $curl = curl_init($_POST['siteUrl']); // Инициализируем CURL и передаем ему сразу url
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); // Для возврата результата передачи в качестве строки из curl_exec() вместо прямого вывода в браузер.
+            //curl_setopt($curl, CURLOPT_HEADER, true); // Показываем заголовки
+            //curl_setopt($curl, CURLOPT_NOBODY, true); // Возвращаем только заголовки
+            //curl_setopt($curl, CURLOPT_HTTPGET, true); //для сброса метода HTTP-запроса на метод GET. Так как GET используется по умолчанию, этот параметр необходим только в случае, если метод запроса был ранее изменён.
+            curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true); // Следуем за редиректом
+            $array_to_json = array('raw_text' => curl_exec($curl)); // Создаем массив для преобразования его в JSON
+            $json = json_encode($array_to_json); // Преобразовываем массив в JSON
+            curl_close($curl); // Закрываем дескриптор
+
+            $curl2 = curl_init('http://localhost/welcome/19_REST_RESTful_API/19.5_Practical_Work/HtmlProcessor.php');
+            curl_setopt($curl2, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl2, CURLOPT_POSTFIELDS, $json);
+            echo curl_exec($curl2);
+            curl_close($curl2);
+        }
+        ?>
     </div>
 </div>
-
-<?php
-
-if($_POST){
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $_POST['siteUrl']);
-    curl_setopt($curl, CURLOPT_HTTPGET, 1);
-    curl_setopt($curl, CURLOPT_PORT, 443);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    $array_to_json = array('raw_text' => curl_exec($curl));
-    var_dump($array_to_json);
-    $json = json_encode($array_to_json);
-    //curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
-    curl_close($curl);
-
-    $curl2 = curl_init();
-}
-
-?>
-
-
-
-<?php
-
-//$url = 'http://www.example.com/';
-//
-//$headers = ['Content-Type: application/json']; // заголовки нашего запроса
-//
-//$post_data = [ // поля нашего запроса
-//    'raw_text' => 'val_1',
-//];
-//
-//$data_json = json_encode($post_data); // переводим поля в формат JSON
-//
-//$curl = curl_init();
-//curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-//curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-//curl_setopt($curl, CURLOPT_VERBOSE, 1);
-//curl_setopt($curl, CURLOPT_POSTFIELDS, $data_json);
-//curl_setopt($curl, CURLOPT_URL, $url);
-//curl_setopt($curl, CURLOPT_POST, true);
-//curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
-//
-//$result = curl_exec($curl); // результат POST запроса
-//
-//var_dump($data_json);
-//var_dump($_POST);
-//var_dump($_GET);
-
-?>
-
 </body>
 </html>
