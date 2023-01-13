@@ -28,7 +28,7 @@
             //curl_setopt($curl, CURLOPT_HTTPGET, true); //для сброса метода HTTP-запроса на метод GET. Так как GET используется по умолчанию, этот параметр необходим только в случае, если метод запроса был ранее изменён.
             curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true); // Следуем за редиректом
             $array_to_json = array('raw_text' => curl_exec($curl)); // Создаем массив для преобразования его в JSON
-            $json = json_encode($array_to_json); // Преобразовываем массив в JSON
+            $json = json_encode($array_to_json); // Преобразовываем массив в  JSON
             curl_close($curl); // Закрываем дескриптор
 
             $curl2 = curl_init('http://localhost/welcome/19_REST_RESTful_API/19.5_Practical_Work/HtmlProcessor.php');
