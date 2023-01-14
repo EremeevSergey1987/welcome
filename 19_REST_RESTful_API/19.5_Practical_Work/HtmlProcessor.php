@@ -18,5 +18,5 @@ else{
     $arrayContent = json_decode($jsonContent, true);
     $replacedContent = preg_replace("/\<a.*href=\"(.*)\".*\>(.*)\<\/a\>/Usi",'$2',$arrayContent['raw_text']);
     $array_replaced_to_json = array('formatted_text' => $replacedContent); // Создаем массив для преобразования его в JSON
-    echo json_encode($array_replaced_to_json); // Преобразовываем массив в - JSON
+    echo json_encode($array_replaced_to_json); // Преобразовываем массив в -  JSON
 }
