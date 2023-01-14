@@ -1,0 +1,15 @@
+//Обновление системы
+sudo apt update
+sudo apt dist-upgrade
+//Обновление системы
+
+sudo systemctl restart apache2 - перезагрузка apache
+
+Поиск конкретного пакета
+dpkg --list 'часть имени пакета*'.
+
+Для удаления пакета используйте:
+apt remove имя_пакета.
+
+Меняем права на директорию /home/qwerty, а так же на всё содержимое директории.
+sudo chmod -R 777 /var/www/html/welcome/
