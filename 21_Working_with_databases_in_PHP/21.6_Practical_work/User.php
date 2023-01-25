@@ -13,9 +13,11 @@ class User{
     {
 
     }
-    public function delete($id)
+    public function delete($id) : void
     {
-
+        $connection = new PDO("mysql:host=localhost;dbname=users_db;charset=utf8",'root','prestigio1987');
+        $statement = $connection->prepare("DELETE FROM Users WHERE id = :id");
+        $statement->execute(['id' => $id]);
     }
     public function list()
     {

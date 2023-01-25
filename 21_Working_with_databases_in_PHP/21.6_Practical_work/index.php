@@ -48,69 +48,67 @@ include_once 'User.php';
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDell_<?=$value['id']?>">Delete <i class="bi bi-trash"></i></button>
                 </td>
             </tr>
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal_<?=$value['id']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit user <?=$value['first_name']?></h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">first_name</label>
-                                        <input value="<?=$value['first_name']?>" type="email" class="form-control" id="exampleFormControlInput1" placeholder="ivan">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">last_name</label>
-                                        <input value="<?=$value['last_name']?>" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Ivanov">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">email</label>
-                                        <input value="<?=$value['email']?>" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">age</label>
-                                        <input value="<?=$value['age']?>" type="email" class="form-control" id="exampleFormControlInput1" placeholder="33">
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal -->
-                <div class="modal fade" id="modalDell_<?=$value['id']?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Подтверждение удаления</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Вы действительно хотите удалить пользователя с именем <?=$value['first_name']?>?</p>
-                                <p class="text-danger">Это действие невозможно отменить!</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет, оставить пользователя</button>
-                                <button type="button" class="btn btn-danger">Да, удалить!</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             <?php endforeach;?>
-
-
-
-
-
             </tbody>
         </table>
+
+        <?php foreach($list_users AS $item => $value):?>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal_<?=$value['id']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit user <?=$value['first_name']?></h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">first_name</label>
+                                    <input value="<?=$value['first_name']?>" type="email" class="form-control" id="exampleFormControlInput1" placeholder="ivan">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">last_name</label>
+                                    <input value="<?=$value['last_name']?>" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Ivanov">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">email</label>
+                                    <input value="<?=$value['email']?>" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">age</label>
+                                    <input value="<?=$value['age']?>" type="email" class="form-control" id="exampleFormControlInput1" placeholder="33">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modalDell_<?=$value['id']?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Подтверждение удаления</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Вы действительно хотите удалить пользователя с именем <?=$value['first_name']?>?</p>
+                            <p class="text-danger">Это действие невозможно отменить!</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет, оставить пользователя</button>
+                            <a class="btn btn-danger" href="index.php?dell=<?=$value['id']?>">Да, удалить!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach;?>
 
         <h2>Insert new user</h2>
         <form action="index.php" method="post">
@@ -134,11 +132,15 @@ include_once 'User.php';
             <button type="submit" class="btn btn-success">Add user <i class="bi bi-person-fill"></i></button>
         </form>
 <?php
+
 if($_POST){
-    print_r($_POST);
     $UserObj->create($_POST);
     $_POST = array();
     echo "<meta http-equiv='refresh' content='0'>";
+}
+var_dump($_GET);
+if($_GET){
+    $UserObj->delete($_GET['dell']);
 }
 
 ?>
