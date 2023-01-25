@@ -1,4 +1,5 @@
 <?php
+session_start();
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -57,34 +58,37 @@ include_once 'User.php';
             <div class="modal fade" id="exampleModal_<?=$value['id']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
+                        <form method="post" action="index.php">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Edit user <?=$value['first_name']?></h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                                <input name="id" type="hidden"  value="<?=$value['id']?>">
+                                <input name="edit" type="hidden"  value="1">
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">first_name</label>
-                                    <input value="<?=$value['first_name']?>" type="email" class="form-control" id="exampleFormControlInput1" placeholder="ivan">
+                                    <input name="first_name" value="<?=$value['first_name']?>" type="text" class="form-control" id="exampleFormControlInput1" placeholder="ivan">
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">last_name</label>
-                                    <input value="<?=$value['last_name']?>" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Ivanov">
+                                    <input name="last_name" value="<?=$value['last_name']?>" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Ivanov">
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">email</label>
-                                    <input value="<?=$value['email']?>" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                                    <input name="email" value="<?=$value['email']?>" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">age</label>
-                                    <input value="<?=$value['age']?>" type="email" class="form-control" id="exampleFormControlInput1" placeholder="33">
+                                    <input name="age" value="<?=$value['age']?>" type="text" class="form-control" id="exampleFormControlInput1" placeholder="33">
+                                    <input name="date_created" type="hidden"  value="<?=(new \DateTime())->format('Y-m-d H:i:s');?>">
                                 </div>
-                            </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -133,14 +137,29 @@ include_once 'User.php';
         </form>
 <?php
 
+if(isset($_POST['edit'])){
+
+    //echo "<meta http-equiv='refresh' content='0'>";
+    try{
+        $UserObj->update($_POST['id'], $_POST);
+        $_POST = array();
+        echo "<meta http-equiv='refresh' content='0'>";
+    }
+    catch (Exception $e){
+        echo '<div class="alert alert-danger" role="alert">' . $e->getMessage() . '</div>';
+    }
+
+}
 if($_POST){
     $UserObj->create($_POST);
     $_POST = array();
     echo "<meta http-equiv='refresh' content='0'>";
 }
-var_dump($_GET);
+
 if($_GET){
     $UserObj->delete($_GET['dell']);
+    echo "<meta http-equiv='refresh' content='0'>";
+    $_GET = array();
 }
 
 ?>

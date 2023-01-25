@@ -24,7 +24,7 @@ session_start();
                 if($_FILES['photo']['size'] > 2097152){
                     throw new Exception('Файл слишком большой!');
                 }
-                if($_FILES['photo']['type'] != 'image/jpeg' && $_FILES['photo']['type'] != 'image/png'){
+                if($_FILES['photo']['type'] != 'image/jpg' && $_FILES['photo']['type'] != 'image/png'){
                     throw new Exception('Не верный формат фото!');
                 }
                 if($_SESSION['count_download'] > 1){
@@ -33,7 +33,7 @@ session_start();
                 move_uploaded_file($_FILES['photo']['tmp_name'], './images/' . $_FILES['photo']['name']);
                 $_SESSION['count_download']++;
                 $img = './images/' . $_FILES['photo']['name'];
-                header('location: ' . $img);
+                header('location: send_photo.php');
             }
             catch (Exception $e){
                 echo '<div class="alert alert-danger" role="alert">' . $e->getMessage() . '</div>';
