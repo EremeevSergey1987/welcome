@@ -5,6 +5,7 @@ sudo apt dist-upgrade
 
 sudo systemctl restart apache2 - перезагрузка apache
 sudo systemctl status apache2 - подтверждение перезапуска apache
+sudo systemctl restart apache2 && systemctl status apache2
 
 Поиск конкретного пакета
 dpkg --list 'часть имени пакета*'.
@@ -43,6 +44,7 @@ php logger.php - выводит 10 случайных логов
 php logger.php >> my_log.php & - записывать логи в свой файл. А амперсанд говорит о том что программу можно запустить в фоновом режиме.
 Чтобы выйти из режима просмотра, нужно нажать ctrl + c
 
+phpmyadmin
 mkdir test_dir - команда для создания директории
 touch readme.txt - команда для создания файла
 rmdir test_dir - удаляем папку test_dir

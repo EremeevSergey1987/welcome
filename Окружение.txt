@@ -1,0 +1,12 @@
+PHP
+sudo apt-get update
+echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/sury-php.list
+wget -qO - https://packages.sury.org/php/apt.gpg | sudo apt-key add
+sudo apt-get update
+sudo apt-get install php
+
+SQL
+sudo dpkg -i (тут путь до скачанного скачать и установить APT репозиторий содержащийся в .deb пакете, который управляет настройкой и установкой программного обеспечения MySQL. )
+sudo apt update
+sudo apt install mysql-server
+sudo systemctl status mysql

@@ -22,8 +22,8 @@ include_once 'User.php';
         <h2>list all users</h2>
         <table class="table">
             <?php
-                $obj = new User();
-                $list_users = $obj->list();
+                $UserObj = new User();
+                $list_users = $UserObj->list();
             ?>
             <thead>
             <tr>
@@ -44,95 +44,119 @@ include_once 'User.php';
                 <td><?=$value['email']?></td>
                 <td><?=$value['age']?></td>
                 <td>
-                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit <i class="bi bi-gear"></i></button>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDell">Delete <i class="bi bi-trash"></i></button>
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal_<?=$value['id']?>">Edit <i class="bi bi-gear"></i></button>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDell_<?=$value['id']?>">Delete <i class="bi bi-trash"></i></button>
                 </td>
             </tr>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal_<?=$value['id']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit user <?=$value['first_name']?></h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">first_name</label>
+                                        <input value="<?=$value['first_name']?>" type="email" class="form-control" id="exampleFormControlInput1" placeholder="ivan">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">last_name</label>
+                                        <input value="<?=$value['last_name']?>" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Ivanov">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">email</label>
+                                        <input value="<?=$value['email']?>" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">age</label>
+                                        <input value="<?=$value['age']?>" type="email" class="form-control" id="exampleFormControlInput1" placeholder="33">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="modalDell_<?=$value['id']?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Подтверждение удаления</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Вы действительно хотите удалить пользователя с именем <?=$value['first_name']?>?</p>
+                                <p class="text-danger">Это действие невозможно отменить!</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет, оставить пользователя</button>
+                                <button type="button" class="btn btn-danger">Да, удалить!</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             <?php endforeach;?>
 
-            <!-- Modal -->
-            <div class="modal fade" id="modalDell" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Подтверждение удаления</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Вы действительно хотите удалить пользователя?</p>
-                            <p class="text-danger">Это действие невозможно отменить!</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет, оставить пользователя</button>
-                            <button type="button" class="btn btn-danger">Да, удалить!</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit user</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                             <form>
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">first_name</label>
-                                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="ivan">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">last_name</label>
-                                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Ivanov">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">email</label>
-                                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">age</label>
-                                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="33">
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
+
             </tbody>
         </table>
 
         <h2>Insert new user</h2>
-        <form>
+        <form action="index.php" method="post">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">first_name</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="ivan">
+            <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="ivan">
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">last_name</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Ivanov">
+            <input name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Ivanov">
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">email</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            <input name="email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">age</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="33">
+            <input name="age" type="tel" class="form-control" id="exampleFormControlInput1" placeholder="33">
+            <input name="date_created" type="hidden"  value="<?=(new \DateTime())->format('Y-m-d H:i:s');?>">
         </div>
-            <button type="button" class="btn btn-success">add user <i class="bi bi-person-add"></i></button>
+            <button type="submit" class="btn btn-success">Add user <i class="bi bi-person-fill"></i></button>
         </form>
-<?
+<?php
+if($_POST){
+    print_r($_POST);
+    $UserObj->create($_POST);
+    $_POST = array();
+    echo "<meta http-equiv='refresh' content='0'>";
+}
 
 ?>
 
     </div>
+</div>
+
+<div class="container">
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+        </ul>
+        <p class="text-center text-muted">© 2022 Company, Inc</p>
+    </footer>
 </div>
 </body>
 </html>
