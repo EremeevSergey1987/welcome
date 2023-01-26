@@ -1,10 +1,25 @@
-<?php
-session_start();
+<?php include_once 'User.php';
+$UserObj = new User();
+$list_users = $UserObj->list();
+if (isset($_POST['edit'])) {
+    $UserObj->update($_POST['id'], $_POST);
+    $_POST = array();
+    echo "<meta http-equiv='refresh' content='0'>";
+}
+if (isset($_POST['new_user'])) {
+    $UserObj->create($_POST);
+    $_POST = array();
+    echo "<meta http-equiv='refresh' content='0'>";
+}
+if ($_GET) {
+    $UserObj->delete($_GET['dell']);
+    //header("Refresh: 0");
+}
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-include_once 'User.php';
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -22,10 +37,6 @@ include_once 'User.php';
         <h1>Users <i class="bi bi-person-fill"></i></h1>
         <h2>list all users</h2>
         <table class="table">
-            <?php
-                $UserObj = new User();
-                $list_users = $UserObj->list();
-            ?>
             <thead>
             <tr>
                 <th scope="col">id</th>
@@ -52,7 +63,6 @@ include_once 'User.php';
             <?php endforeach;?>
             </tbody>
         </table>
-
         <?php foreach($list_users AS $item => $value):?>
             <!-- Modal -->
             <div class="modal fade" id="exampleModal_<?=$value['id']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -92,7 +102,6 @@ include_once 'User.php';
                     </div>
                 </div>
             </div>
-
             <!-- Modal -->
             <div class="modal fade" id="modalDell_<?=$value['id']?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -113,7 +122,6 @@ include_once 'User.php';
                 </div>
             </div>
         <?php endforeach;?>
-
         <h2>Insert new user</h2>
         <form action="index.php" method="post">
         <div class="mb-3">
@@ -133,40 +141,11 @@ include_once 'User.php';
             <input name="age" type="tel" class="form-control" id="exampleFormControlInput1" placeholder="33">
             <input name="date_created" type="hidden"  value="<?=(new \DateTime())->format('Y-m-d H:i:s');?>">
         </div>
+            <input name="new_user" type="hidden"  value="1">
             <button type="submit" class="btn btn-success">Add user <i class="bi bi-person-fill"></i></button>
         </form>
-<?php
-
-if(isset($_POST['edit'])){
-
-    //echo "<meta http-equiv='refresh' content='0'>";
-    try{
-        $UserObj->update($_POST['id'], $_POST);
-        $_POST = array();
-        echo "<meta http-equiv='refresh' content='0'>";
-    }
-    catch (Exception $e){
-        echo '<div class="alert alert-danger" role="alert">' . $e->getMessage() . '</div>';
-    }
-
-}
-if($_POST){
-    $UserObj->create($_POST);
-    $_POST = array();
-    echo "<meta http-equiv='refresh' content='0'>";
-}
-
-if($_GET){
-    $UserObj->delete($_GET['dell']);
-    echo "<meta http-equiv='refresh' content='0'>";
-    $_GET = array();
-}
-
-?>
-
     </div>
 </div>
-
 <div class="container">
     <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
@@ -181,5 +160,3 @@ if($_GET){
 </div>
 </body>
 </html>
-
-
