@@ -1,25 +1,12 @@
-<?php include_once 'User.php';
+<?php
+include_once 'User.php';
 $UserObj = new User();
 $list_users = $UserObj->list();
-if (isset($_POST['edit'])) {
-    $UserObj->update($_POST['id'], $_POST);
-    $_POST = array();
-    echo "<meta http-equiv='refresh' content='0'>";
+$UserObj->delete($_GET['dell']);
+if(!empty($_GET)){
+header('location: index.php');
 }
-if (isset($_POST['new_user'])) {
-    $UserObj->create($_POST);
-    $_POST = array();
-    echo "<meta http-equiv='refresh' content='0'>";
-}
-if ($_GET) {
-    $UserObj->delete($_GET['dell']);
-    //header("Refresh: 0");
-}
-ini_set('error_reporting', E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
 ?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -34,6 +21,30 @@ ini_set('display_startup_errors', 1);
 <body>
 <div class="container">
     <div class="row">
+        <?php
+        if (isset($_POST['edit'])) {
+            try{
+                if(strlen($_POST['first_name']) == 0){
+                    throw new Exception('Ошибка редактирования! Нужно указать имя!');
+                }
+                if(strlen($_POST['last_name']) == 0){
+                    throw new Exception('Ошибка редактирования! Нужно указать фамилию!');
+                }
+                if(strlen($_POST['age']) == 0){
+                    throw new Exception('Ошибка редактирования! Нужно указать возраст!');
+                }
+                if(strlen($_POST['email']) == 0){
+                    throw new Exception('Ошибка редактирования! Нужно указать электронную почту!');
+                }
+                $UserObj->update($_POST['id'], $_POST);
+                $_POST = array();
+                header('location: index.php');
+            }
+            catch (Exception $e){
+                echo '<div class="alert alert-danger" role="alert">' . $e->getMessage() . '</div>';
+            }
+        }
+        ?>
         <h1>Users <i class="bi bi-person-fill"></i></h1>
         <h2>list all users</h2>
         <table class="table">
@@ -123,22 +134,46 @@ ini_set('display_startup_errors', 1);
             </div>
         <?php endforeach;?>
         <h2>Insert new user</h2>
+        <?php
+        if (isset($_POST['new_user'])) {
+            try{
+                if(strlen($_POST['first_name']) == 0){
+                    throw new Exception('Нужно указать имя!');
+                }
+                if(strlen($_POST['last_name']) == 0){
+                    throw new Exception('Нужно указать фамилию!');
+                }
+                if(strlen($_POST['age']) == 0){
+                    throw new Exception('Нужно указать возраст!');
+                }
+                if(strlen($_POST['email']) == 0){
+                    throw new Exception('Нужно указать электронную почту!');
+                }
+                $UserObj->create($_POST);
+                $_POST = array();
+                echo '<meta http-equiv="refresh" content="0">';
+            }
+            catch (Exception $e){
+                echo '<div class="alert alert-danger" role="alert">' . $e->getMessage() . '</div>';
+            }
+        }
+        ?>
         <form action="index.php" method="post">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">first_name</label>
-            <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="ivan">
+            <input name="first_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="ivan" value="<?php if(isset($_POST['first_name'])){echo $_POST['first_name'];}?>">
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">last_name</label>
-            <input name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Ivanov">
+            <input name="last_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Ivanov" value="<?php if(isset($_POST['last_name'])){echo $_POST['last_name'];}?>">
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">email</label>
-            <input name="email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            <input name="email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" value="<?php if(isset($_POST['email'])){echo $_POST['email'];}?>">
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">age</label>
-            <input name="age" type="tel" class="form-control" id="exampleFormControlInput1" placeholder="33">
+            <input name="age" type="tel" class="form-control" id="exampleFormControlInput1" placeholder="33" value="<?php if(isset($_POST['age'])){echo $_POST['age'];}?>">
             <input name="date_created" type="hidden"  value="<?=(new \DateTime())->format('Y-m-d H:i:s');?>">
         </div>
             <input name="new_user" type="hidden"  value="1">
