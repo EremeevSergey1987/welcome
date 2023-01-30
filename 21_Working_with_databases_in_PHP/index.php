@@ -14,3 +14,5 @@ $statement = $connection->prepare('SELECT * FROM user');
 $queryResult = $statement->execute();
 $dataResult = $statement->fetchAll();
 print_r($dataResult);
+
+//phpinfo();

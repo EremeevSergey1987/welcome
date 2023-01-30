@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestMessage;
 use App\Http\Controllers\TestRequest;
 use App\Http\Controllers\ArrayTest;
+use App\Http\Controllers\Books;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,8 @@ Route::get('/show-message/{iterations}', [TestMessage::class, 'showMessage'])->n
 Route::get('/test-array', [TestRequest::class, 'testGet']);
 Route::post('/test-array', [TestRequest::class, 'testPost']);
 Route::get('/array-color', [ArrayTest::class, 'showColor']);
+
+Route::get('/books', [Books::class, 'listBooks']);
+Route::post('/books', [Books::class,'postBook']);
+Route::put('/books', [Books::class, 'uploadBook']);
+Route::delete('/books/{id}', [Books::class, 'deleteBook']);
