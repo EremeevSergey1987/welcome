@@ -10,7 +10,6 @@ class FileStorage extends Storage{
         while (file_exists($slug)) {
             $slug = 'test_text_file_' . date("Y_m_d") . '_' . $i++ . '.txt';
         }
-
         $objTelegraphText->slug = $slug;
         file_put_contents($slug, serialize($objTelegraphText));
         return $objTelegraphText->slug;

@@ -13,7 +13,7 @@ class UserList extends Controller
     public function __invoke()
     {
         $user = Auth::user();
-        if($user->id != 2){
+        if($user->id != 1){
             return new Response('You are not authorized to view this page!', 403);
         }
         $users = User::all();
