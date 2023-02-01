@@ -15,7 +15,7 @@
 <h2>Такого цвета нет.</h2>
 @endif
 <hr />
-<table border="2">
+<table>
 @foreach($colorsArray as $item)
         <tr>
             <td>
