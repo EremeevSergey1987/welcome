@@ -15,4 +15,4 @@ $queryResult = $statement->execute();
 $dataResult = $statement->fetchAll();
 print_r($dataResult);
 
-//phpinfo();
+phpinfo();

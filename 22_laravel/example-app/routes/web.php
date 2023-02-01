@@ -5,6 +5,7 @@ use App\Http\Controllers\TestMessage;
 use App\Http\Controllers\TestRequest;
 use App\Http\Controllers\ArrayTest;
 use App\Http\Controllers\Books;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +31,8 @@ Route::get('/books', [Books::class, 'listBooks']);
 Route::post('/books', [Books::class,'postBook']);
 Route::put('/books', [Books::class, 'uploadBook']);
 Route::delete('/books/{id}', [Books::class, 'deleteBook']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/userlist', \App\Http\Controllers\UserList::class)->middleware('auth');
