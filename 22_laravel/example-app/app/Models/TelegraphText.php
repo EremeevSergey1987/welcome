@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,17 +7,15 @@ use Cviebrock\EloquentSluggable\Sluggable;
 
 class TelegraphText extends Model
 {
-    use HasFactory;
     use Sluggable;
+    use HasFactory;
     protected $fillable = [
-
         'text',
         'title',
         'author',
         'slug',
     ];
-
-    public function Sluggable(): array
+    public function sluggable(): array
     {
         return [
             'slug' => [
@@ -26,4 +23,5 @@ class TelegraphText extends Model
             ]
         ];
     }
+
 }
