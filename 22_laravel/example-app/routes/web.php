@@ -6,6 +6,7 @@ use App\Http\Controllers\TestRequest;
 use App\Http\Controllers\ArrayTest;
 use App\Http\Controllers\Books;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\TextController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,12 @@ Route::get('/books', [Books::class, 'listBooks']);
 Route::post('/books', [Books::class,'postBook']);
 Route::put('/books', [Books::class, 'uploadBook']);
 Route::delete('/books/{id}', [Books::class, 'deleteBook']);
+
+Route::get('/telegraph_text', [TextController::class, 'list']);
+Route::post('/telegraph_text', [TextController::class, 'add']);
+Route::put('/telegraph_text', [TextController::class, 'update']);
+Route::delete('/telegraph_text/{id}', [TextController::class, 'delete']);
+
 
 Auth::routes();
 
