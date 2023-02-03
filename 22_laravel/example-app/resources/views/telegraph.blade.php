@@ -24,8 +24,16 @@
                         <p class="card-text">{{$item['text']}}</p>
                     </div>
                     <div class="card-footer bg-transparent border-success">
+                        <form method="POST" action="/telegraph_text/{{$item['id']}}">
+                            @csrf
+                            @method('put')
                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal_">Edit <i class="bi bi-gear"></i></button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDell_">Delete <i class="bi bi-trash"></i></button>
+                        </form>
+                        <form method="POST" action="/telegraph_text/{{$item['id']}}">
+                            @csrf
+                            @method('delete')
+                            <button type='submit' class="btn btn-danger">Delete</button>
+                        </form>
                     </div>
                 </div>
             @endforeach
@@ -34,14 +42,14 @@
         @endif
 
         <h2>Добавить новый пост</h2>
-            <form action="index.php" method="post">
+            <form action="/telegraph_text" method="post">
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Автор</label>
-                    <input name="first_name" type="text" class="form-control">
+                    <input name="author" type="text" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Заголовок</label>
-                    <input name="last_name" type="text" class="form-control">
+                    <input name="title" type="text" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Текст</label>

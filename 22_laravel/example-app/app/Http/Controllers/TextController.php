@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Models\TelegraphText;
@@ -23,6 +24,7 @@ class TextController extends Controller
         $TelegraphText->author = $author;
         $TelegraphText->slug = SlugService::createSlug(TelegraphText::class, 'slug', $TelegraphText->title);
         $TelegraphText->save();
+        return new RedirectResponse('/telegraph_text');
     }
     public function update(Request $request)
     {
@@ -32,9 +34,11 @@ class TextController extends Controller
         $id = $request->get('id');
         $slug = SlugService::createSlug(TelegraphText::class, 'slug', $title);
         TelegraphText::find($id)->update(['title'=>$title, 'text'=>$text, 'author'=>$author, 'slug'=>$slug]);
+        return new RedirectResponse('/telegraph_text');
     }
     public function delete($id)
     {
         TelegraphText::where('id', '=', $id)->delete();
+        return new RedirectResponse('/telegraph_text');
     }
 }
