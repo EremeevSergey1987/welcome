@@ -38,8 +38,5 @@ Route::post('/telegraph_text', [TextController::class, 'add']);
 Route::put('/telegraph_text', [TextController::class, 'update']);
 Route::delete('/telegraph_text/{id}', [TextController::class, 'delete']);
 
-
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/userlist', \App\Http\Controllers\UserList::class)->middleware('auth');

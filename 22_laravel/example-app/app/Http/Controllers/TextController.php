@@ -6,11 +6,14 @@ use App\Models\TelegraphText;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 class TextController extends Controller
 {
-    public function list(){
+    public function list()
+    {
         $TelegraphText = TelegraphText::all();
-        return new Response(json_encode($TelegraphText));
+        $view = view('telegraph')->with(['telegraph' => $TelegraphText]);
+        return new Response($view);
     }
-    public function add(Request $request){
+    public function add(Request $request)
+    {
         $title = $request->get('title');
         $text = $request->get('text');
         $author = $request->get('author');
@@ -20,17 +23,18 @@ class TextController extends Controller
         $TelegraphText->author = $author;
         $TelegraphText->slug = SlugService::createSlug(TelegraphText::class, 'slug', $TelegraphText->title);
         $TelegraphText->save();
-
     }
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         $title = $request->get('title');
         $text = $request->get('text');
         $author = $request->get('author');
         $id = $request->get('id');
-        //$slug = Str::slug($request->title);
-        TelegraphText::find($id)->update(['title'=>$title, 'text'=>$text, 'author'=>$author, 'slug'=>$slug, 'id' => $id]);
+        $slug = SlugService::createSlug(TelegraphText::class, 'slug', $title);
+        TelegraphText::find($id)->update(['title'=>$title, 'text'=>$text, 'author'=>$author, 'slug'=>$slug]);
     }
-    public function delete($id){
+    public function delete($id)
+    {
         TelegraphText::where('id', '=', $id)->delete();
     }
 }
