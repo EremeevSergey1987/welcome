@@ -7,6 +7,7 @@ use App\Http\Controllers\ArrayTest;
 use App\Http\Controllers\Books;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\TextController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
